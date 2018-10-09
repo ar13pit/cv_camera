@@ -3,30 +3,29 @@
 #ifndef CV_CAMERA_CAPTURE_H
 #define CV_CAMERA_CAPTURE_H
 
-#include "cv_camera/exception.h"
 #include <string>
+#include "sensor_msgs/CameraInfo.h"
+#include "ros/ros.h"
 
-#include <ros/ros.h>
-#include <cv_bridge/cv_bridge.h>
-#include <image_transport/image_transport.h>
-#include <sensor_msgs/CameraInfo.h>
-#include <sensor_msgs/image_encodings.h>
-#include <opencv2/highgui/highgui.hpp>
-#include <camera_info_manager/camera_info_manager.h>
+#include "cv_bridge/cv_bridge.h"
+#include "image_transport/image_transport.h"
+#include "sensor_msgs/image_encodings.h"
+#include "camera_info_manager/camera_info_manager.h"
+#include "opencv2/highgui/highgui.hpp"
+#include "cv_camera/exception.h"
 
 /**
  * @brief namespace of this package
  */
 namespace cv_camera
 {
-
 /**
  * @brief captures by cv::VideoCapture and publishes to ROS topic.
  *
  */
 class Capture
 {
-public:
+ public:
   /**
    * @brief costruct with ros node and topic settings
    *
@@ -152,7 +151,7 @@ public:
    */
   bool setPropertyFromParam(int property_id, const std::string &param_name);
 
-private:
+ private:
   /**
    * @brief rescale camera calibration to another resolution
    */
@@ -220,6 +219,6 @@ private:
   ros::Duration capture_delay_;
 };
 
-} // namespace cv_camera
+}  // namespace cv_camera
 
-#endif // CV_CAMERA_CAPTURE_H
+#endif  // CV_CAMERA_CAPTURE_H

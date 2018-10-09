@@ -186,4 +186,4 @@ bool Capture::setPropertyFromParam(int property_id, const std::string &param_nam
   return true;
 }
 
-} // namespace cv_camera
+}  // namespace cv_camera

@@ -73,7 +73,7 @@ private:
   boost::shared_ptr<boost::thread> thread_;
 };
 
-} // end namespace cv_camera
+}  // end namespace cv_camera
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS(cv_camera::CvCameraNodelet, nodelet::Nodelet)

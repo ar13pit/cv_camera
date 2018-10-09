@@ -86,13 +86,13 @@ void Driver::setup()
   camera_->setPropertyFromParam(CV_CAP_PROP_ISO_SPEED, "cv_cap_prop_iso_speed");
 #ifdef CV_CAP_PROP_WHITE_BALANCE_U
   camera_->setPropertyFromParam(CV_CAP_PROP_WHITE_BALANCE_U, "cv_cap_prop_white_balance_u");
-#endif // CV_CAP_PROP_WHITE_BALANCE_U
+#endif  // CV_CAP_PROP_WHITE_BALANCE_U
 #ifdef CV_CAP_PROP_WHITE_BALANCE_V
   camera_->setPropertyFromParam(CV_CAP_PROP_WHITE_BALANCE_V, "cv_cap_prop_white_balance_v");
-#endif // CV_CAP_PROP_WHITE_BALANCE_V
+#endif  // CV_CAP_PROP_WHITE_BALANCE_V
 #ifdef CV_CAP_PROP_BUFFERSIZE
   camera_->setPropertyFromParam(CV_CAP_PROP_BUFFERSIZE, "cv_cap_prop_buffersize");
-#endif // CV_CAP_PROP_BUFFERSIZE
+#endif  // CV_CAP_PROP_BUFFERSIZE
 
   rate_.reset(new ros::Rate(hz));
 }
@@ -110,4 +110,4 @@ Driver::~Driver()
 {
 }
 
-} // namespace cv_camera
+}  // namespace cv_camera
