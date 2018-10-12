@@ -27,6 +27,7 @@ class Driver
    */
   Driver(ros::NodeHandle& private_node,
          ros::NodeHandle& camera_node);
+
   ~Driver();
 
   /**
@@ -35,28 +36,19 @@ class Driver
    * @throw cv_camera::DeviceError device open failed.
    */
   void setup();
+
   /**
    * @brief Capture, publish and sleep
    */
   void proceed();
- private:
-  /**
-   * @brief ROS private node for getting ROS parameters.
-   */
-  ros::NodeHandle private_node_;
-  /**
-   * @brief ROS private node for publishing images.
-   */
-  ros::NodeHandle camera_node_;
-  /**
-   * @brief wrapper of cv::VideoCapture.
-   */
-  boost::shared_ptr<Capture> camera_;
 
-  /**
-   * @brief publishing rate.
-   */
-  boost::shared_ptr<ros::Rate> rate_;
+ private:
+
+  ros::NodeHandle private_node_;            /**< ROS private node for getting ROS parameters. */
+  ros::NodeHandle camera_node_;             /**< ROS private node for publishing images. */
+
+  boost::shared_ptr<Capture> camera_;       /**< wrapper of cv::VideoCapture. */
+  boost::shared_ptr<ros::Rate> rate_;       /**< publishing rate. */
 };
 
 }  // namespace cv_camera

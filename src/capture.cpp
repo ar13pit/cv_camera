@@ -2,7 +2,6 @@
 
 #include "cv_camera/capture.h"
 #include <sstream>
-#include <string>
 
 namespace cv_camera
 {

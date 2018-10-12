@@ -4,14 +4,15 @@
 #define CV_CAMERA_CAPTURE_H
 
 #include <string>
-#include "sensor_msgs/CameraInfo.h"
-#include "ros/ros.h"
+#include "opencv2/highgui/highgui.hpp"
 
+#include "ros/ros.h"
+#include "sensor_msgs/CameraInfo.h"
+#include "sensor_msgs/image_encodings.h"
 #include "cv_bridge/cv_bridge.h"
 #include "image_transport/image_transport.h"
-#include "sensor_msgs/image_encodings.h"
 #include "camera_info_manager/camera_info_manager.h"
-#include "opencv2/highgui/highgui.hpp"
+
 #include "cv_camera/exception.h"
 
 /**
@@ -152,71 +153,32 @@ class Capture
   bool setPropertyFromParam(int property_id, const std::string &param_name);
 
  private:
+
+  ros::NodeHandle node_;    /**< node handle for advertise. */
+  ros::Duration capture_delay_;     /**< capture_delay param value */
+
+  image_transport::ImageTransport it_;  /**< ROS image transport utility. */
+  image_transport::CameraPublisher pub_;    /**< image publisher created by image_transport::ImageTransport. */
+
+  std::string topic_name_;  /**< name of topic without namespace (usually "image_raw"). */
+  std::string frame_id_;    /**< header.frame_id for publishing images. */
+
+  int32_t buffer_size_;     /**< size of publisher buffer */
+
+  cv::VideoCapture cap_;    /**< capture device. */
+
+  cv_bridge::CvImage bridge_;   /**< this stores last captured image. */
+
+  sensor_msgs::CameraInfo info_;    /**< this stores last captured image info. Currently this has image size (width/height) only. */
+
+  camera_info_manager::CameraInfoManager info_manager_;     /**< camera info manager */
+
+  bool rescale_camera_info_;    /**< rescale_camera_info param value */
+
   /**
    * @brief rescale camera calibration to another resolution
    */
   void rescaleCameraInfo(int width, int height);
-
-  /**
-   * @brief node handle for advertise.
-   */
-  ros::NodeHandle node_;
-
-  /**
-   * @brief ROS image transport utility.
-   */
-  image_transport::ImageTransport it_;
-
-  /**
-   * @brief name of topic without namespace (usually "image_raw").
-   */
-  std::string topic_name_;
-
-  /**
-   * @brief header.frame_id for publishing images.
-   */
-  std::string frame_id_;
-  /**
-   * @brief size of publisher buffer
-   */
-  int32_t buffer_size_;
-
-  /**
-   * @brief image publisher created by image_transport::ImageTransport.
-   */
-  image_transport::CameraPublisher pub_;
-
-  /**
-   * @brief capture device.
-   */
-  cv::VideoCapture cap_;
-
-  /**
-   * @brief this stores last captured image.
-   */
-  cv_bridge::CvImage bridge_;
-
-  /**
-   * @brief this stores last captured image info.
-   *
-   * currently this has image size (width/height) only.
-   */
-  sensor_msgs::CameraInfo info_;
-
-  /**
-   * @brief camera info manager
-   */
-  camera_info_manager::CameraInfoManager info_manager_;
-
-  /**
-   * @brief rescale_camera_info param value
-   */
-  bool rescale_camera_info_;
-
-  /**
-   * @brief capture_delay param value
-   */
-  ros::Duration capture_delay_;
 };
 
 }  // namespace cv_camera

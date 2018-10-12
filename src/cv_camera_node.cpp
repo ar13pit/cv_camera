@@ -1,5 +1,6 @@
 // Copyright [2015] Takashi Ogura<t.ogura@gmail.com>
 
+#include <ros/ros.h>
 #include "cv_camera/driver.h"
 
 int main(int argc, char **argv)

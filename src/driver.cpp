@@ -21,7 +21,11 @@ Driver::Driver(ros::NodeHandle &private_node, ros::NodeHandle &camera_node)
 void Driver::setup()
 {
   double hz(DEFAULT_RATE);
+
   int32_t device_id(0);
+  int32_t image_width(640);
+  int32_t image_height(480);
+
   std::string device_path("");
   std::string frame_id("camera");
   std::string file_path("");
@@ -29,9 +33,6 @@ void Driver::setup()
   private_node_.getParam("device_id", device_id);
   private_node_.getParam("frame_id", frame_id);
   private_node_.getParam("rate", hz);
-
-  int32_t image_width(640);
-  int32_t image_height(480);
 
   camera_.reset(new Capture(camera_node_,
                             "image_raw",
@@ -50,6 +51,7 @@ void Driver::setup()
   {
     camera_->open(device_id);
   }
+
   if (private_node_.getParam("image_width", image_width))
   {
     if (!camera_->setWidth(image_width))
@@ -57,6 +59,7 @@ void Driver::setup()
       ROS_WARN("fail to set image_width");
     }
   }
+
   if (private_node_.getParam("image_height", image_height))
   {
     if (!camera_->setHeight(image_height))
